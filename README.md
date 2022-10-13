@@ -4,4 +4,4 @@
   <a href="https://www.figma.com/file/w8kGZnj5Ve86zpXj6lFcOh/Untitled?node-id=0%3A1">Design</a>
   <br>
 <p>Andrej Svrcek: Funkcie, Vyhľadávanie</p>
-<p>Samuel Strycek: Vizual</p>
+<p>Samuel Strycek: Buttony s vysledkami, dizajn stranky</p>
