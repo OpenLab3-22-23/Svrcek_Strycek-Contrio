@@ -1,8 +1,22 @@
-.countrybutton button{
+.headher {
+  text-align: center;
+}
+.search-bar {
+  text-align: center;
+}
+.countrybuttonrow1 button {
+  width: 15%;
+  height: 25vh;
+}
+.countrybuttonrow1 {
+  display: flex;
+  justify-content: space-around;
+}
+.countrybuttonrow2 button {
   width: 15%;
   height: auto;
 }
-.countrybutton{
+.countrybuttonrow2 {
   display: flex;
   justify-content: space-around;
 }
