@@ -12,6 +12,7 @@ body {
 .search-button {
   background-color: black;
   color: white;
+  cursor: pointer;
 }
 .search-bar {
   border-color: black;
@@ -21,14 +22,24 @@ body {
   margin-top: 30px;
   margin-left: 20px;
   margin-right: 20px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   column-gap: 20px;
   row-gap: 40px;
 }
-.country {
+/* .country {
   text-align: center;
   height: 25vh;
   border-width: 2px;
   border-style: solid;
   border-color: black;
+} */
+
+.country-grid > div { 
+  text-align: center;
+  height: 25vh;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 12%;
+  padding: 10px;
 }
