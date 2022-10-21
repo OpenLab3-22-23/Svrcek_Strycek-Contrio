@@ -6,9 +6,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML =`
     <div class="search-menu">
       <input class="search-bar" type="text" placeholder="Search.." id="search">
       <input class="search-button" type="button" id="btn1" value="Search">
+		</div>
     </div>
     <div id="grid" class="country-grid">
-      <div id="div1" class="country">name: Berlin</div>
+      <div id="div1" class="country">
+				<p>Name: Berlin</p>
+				<p>Country: Germany</p>
+				<p>Region: Berlin</p>
+				<p>Population: 3664088</p>
+			</div>
     </div>
   </div>`
 type City = {
@@ -62,8 +68,27 @@ btn1.addEventListener('click', submit);
 function ElementPusher(data : Array<City>) : void {
   for (let i = 0; i < data.length; i++) {
     const newDiv= document.createElement("div");
-    const newContent1 = document.createTextNode("name: " + data[i].name);
-    newDiv.appendChild(newContent1);
+
+    const cityParagraph = document.createElement("p");
+    const newCity = document.createTextNode(`Name: ${data[i].name}`);
+    cityParagraph.appendChild(newCity);
+    newDiv.appendChild(cityParagraph);
+
+    const countryParagraph = document.createElement("p");
+    const newCountry = document.createTextNode(`Country: ${data[i].country}`);
+    countryParagraph.appendChild(newCountry);
+    newDiv.appendChild(countryParagraph);
+
+    const regionParagraph = document.createElement("p");
+    const newRegion = document.createTextNode(`Region: ${data[i].region}`);
+    regionParagraph.appendChild(newRegion);
+    newDiv.appendChild(regionParagraph);
+
+    const populationParagraph = document.createElement("p");
+    const newPopulation = document.createTextNode(`Population: ${data[i].population}`);
+    populationParagraph.appendChild(newPopulation);
+    newDiv.appendChild(populationParagraph);
+
     document.getElementById('grid')!.appendChild(newDiv);
   }
 }
