@@ -3,18 +3,14 @@ import './style.css'
 document.querySelector<HTMLDivElement>('#app')!.innerHTML =`
   <div>
     <h1 class="headher">Contrio</h1>
-    <div class="search-menu">
-      <input class="search-bar" type="text" placeholder="Search.." id="search">
-      <input class="search-button" type="button" id="btn1" value="Search">
-		</div>
+    <div class="container">
+      <div class="search-bar">
+        <input class="search-input" type="text" placeholder="Search for city.." id="search">
+        <button class="search-button" id="btn1"><i class="fa-solid fa-magnifying-glass"></i></button>
+		  </div>
+    </div>
     </div>
     <div id="grid" class="country-grid">
-      <div id="div1" class="country">
-				<p>Name: Berlin</p>
-				<p>Country: Germany</p>
-				<p>Region: Berlin</p>
-				<p>Population: 3664088</p>
-			</div>
     </div>
   </div>`
 type City = {
@@ -28,9 +24,15 @@ const searchOutput = document.getElementById('search') as HTMLInputElement;
 const btn1 = document.getElementById('btn1') as HTMLInputElement;
 let text: string = "";
 
+submit()
+btn1.addEventListener('click', submit);
+
 function submit(): void {
   deleteGridChild();
   text = searchOutput.value;
+  if (text == "") {
+    text = "Kysucke";    
+  }
 
   const options = {
     method: 'GET',
@@ -62,8 +64,6 @@ function submit(): void {
   )
   .catch(err => console.error(err));
 }
-
-btn1.addEventListener('click', submit);
 
 function ElementPusher(data : Array<City>) : void {
   for (let i = 0; i < data.length; i++) {
