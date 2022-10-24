@@ -50,6 +50,7 @@ body {
   outline: 0;
   flex: 1;
   border-radius: 100px;
+  transition: background-color 0.15s;
 }
 
 .search-input:focus {
