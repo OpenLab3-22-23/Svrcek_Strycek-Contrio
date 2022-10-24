@@ -48,9 +48,12 @@ body {
   border: 0;
   height: 1.625rem;
   outline: 0;
-  color: white;
   flex: 1;
   border-radius: 100px;
+}
+
+.search-input:focus {
+  background-color: white;
 }
 
 .search-button {
