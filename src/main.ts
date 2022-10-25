@@ -9,6 +9,16 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML =`
         <button class="search-button" id="btn1"><i class="fa-solid fa-magnifying-glass"></i></button>
 		  </div>
     </div>
+    <div class="slider-container">
+      <div class="slider-box">
+          <p class="slider-paragraph">City</p>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          <p class="slider-paragraph">Country</p>
+        </div> 
+      </div>
     </div>
     <div id="grid" class="country-grid">
     </div>
