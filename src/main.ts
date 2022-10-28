@@ -12,7 +12,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML =`
     <div class="slider-container">
       <div class="slider-box">
         <div>
-          <p class="slider-paragraph">City</p>
+          <p id="city" class="slider-paragraph"></p>
         </div>
         <div class="slider-cell">
           <label class="switch">
@@ -21,7 +21,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML =`
           </label>
         </div>
         <div>
-          <p class="slider-paragraph">Country</p>
+          <p id="country" class="slider-paragraph"></p>
         </div>
       </div> 
     </div>
@@ -34,6 +34,15 @@ type City = {
   country : string;
   region : string;
   population : number;
+}
+
+type Country = {
+  name : string;
+  capital : string;
+  currency : string;
+  flag : URL;
+  regions : number;
+  callingCode : number;
 }
 
 const searchOutput = document.getElementById('search') as HTMLInputElement;
@@ -55,10 +64,13 @@ SliderCheck()
 
 function SliderCheck() {
   checkBox = document.querySelector('#slider:checked') !== null;
-
+  document.getElementById('country')!.innerText = "";
+  document.getElementById('city')!.innerText = "";
   if (checkBox == true) {
+    document.getElementById('country')!.innerText = "Country";
     SubmitCountry()
   }else{
+    document.getElementById('city')!.innerText = "City";
     SubmitCity();
   }
 }
@@ -85,16 +97,17 @@ function SubmitCity(): void {
     let CityData: City[] = [];
 
     for (let i = 0; i < response.data.length; i++) {
-      const city: City = {
+      CityData[i] = {
         name : response.data[i].name,
         country : response.data[i].country,
         region : response.data[i].region,
-        population : response.data[i].population,
+        population : response.data[i].population
       }
-      CityData[i] = city;
     }
     // console.log(CityData);
-
+    if (CityData[0] == null) {
+      confirm("This city doesn't exist")
+    }
     ElementPusher(CityData)
   })
   .catch(err => console.error(err));
@@ -119,17 +132,11 @@ function SubmitCountry(): void {
     .then(response => response.json())
     .then(async response => {
       
-      let countryCode: String[] = [];
-
-      for (let i = 0; i < response.data.length; i++) {
-        const cCode:string = response.data[i].code;
-        countryCode[i] = cCode;
-      }
-      // console.log(countryCode);
-
       await delay(1300);
 
-      for (let i = 0; i < countryCode.length; i++) {
+      let CountryData: Country[] = [];
+      
+      for (let i = 0; i < response.data.length; i++) {
         const options = {
           method: 'GET',
           headers: {
@@ -138,17 +145,30 @@ function SubmitCountry(): void {
           }
         };
         
-        fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${countryCode[i]}`, options)
+        fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${response.data[i].code}`, options)
         .then(response => response.json())
         .then(response => {
-          console.log(response)
-        
-          // To be continued...
+
+            const country: Country = {
+            name : response.data.name,
+            capital : response.data.capital,
+            currency : response.data.currencyCodes[0],
+            flag : response.data.flagImageUri,
+            regions : response.data.numRegions,
+            callingCode : response.data.callingCode,
+          }
+          CountryData[i] = country;
         })
         .catch(err => console.error(err));
 
         await delay(1500);
       }
+      // console.log(CountryData);
+
+      if (CountryData[0] == null) {
+        confirm("This country doesn't exist")
+      }
+      CountryElementPusher(CountryData);
     })
     .catch(err => console.error(err));
 
@@ -179,6 +199,38 @@ function ElementPusher(data : Array<City>) : void {
     newDiv.appendChild(populationParagraph);
 
     document.getElementById('grid')!.appendChild(newDiv);
+  }
+}
+
+function CountryElementPusher(data : Array<Country>) {
+  for (let i = 0; i < data.length; i++) {
+    
+    const newDiv = document.createElement("div");
+    
+    for (let j = 0; j < 5; j++) {
+      const newParagraph = document.createElement("p");
+      let myCountry:Text;
+      if (j == 0) {
+        myCountry = document.createTextNode(`Name: ${data[i].name}`);
+      }else if (j == 1) {
+        myCountry = document.createTextNode(`Capital: ${data[i].capital}`);
+      }else if (j == 2) {
+        myCountry = document.createTextNode(`Currency: ${data[i].currency}`);
+      }else if (j == 3) {
+        myCountry = document.createTextNode(`Regions: ${data[i].regions}`);
+      }else if (j == 4) {
+        myCountry = document.createTextNode(`CallingCode: ${data[i].callingCode}`);
+      }
+      newParagraph.appendChild(myCountry);
+      newDiv.appendChild(newParagraph);
+    }
+
+    const countryFlag = document.createElement("img");
+    countryFlag.src = `${data[i].flag}`;
+    newDiv.appendChild(countryFlag);
+
+    document.getElementById('grid')!.appendChild(newDiv);
+
   }
 }
 

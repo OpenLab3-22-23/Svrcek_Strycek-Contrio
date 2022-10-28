@@ -41,7 +41,7 @@ body {
   border-radius: 100px;
   border: 2px solid #282828;
   background-color: #282828;
-  width: 30vw;
+  width: 27vw;
   min-width: 300px;
 }
 
@@ -51,7 +51,7 @@ body {
   border: 0;
   outline: 0;
   flex: 1;
-  border-radius: 100px;
+  border-radius: 6.25rem;
   transition: background-color 0.15s;
   color: white;
   font-family: 'Roboto', sans-serif, Arial;
@@ -96,7 +96,7 @@ body {
 
 .country-grid > div {
 	height: auto;
-  border-radius: 5%;
+  border-radius: 15px;
   padding-left: 2rem;
   padding-right: 2rem;
   background-color: #282828;
@@ -110,11 +110,17 @@ body {
 .country-grid > div > p {
   text-align: start;
 	cursor: default;
-  font-size: 1.5rem;
+  font-size: large;
   color: white;
   font-family: 'Roboto', sans-serif, Arial;
   font-weight: 400;
-  
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.country-grid > div > img {
+  width: 80px;
 }
 
 /* Slider */
@@ -127,7 +133,7 @@ body {
 
 .slider-box {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 6.25rem 1fr;
 }
 
 .switch {
@@ -150,7 +156,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #282828;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -158,10 +164,10 @@ body {
 .slider::before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 1.625rem;
+  width: 1.625rem;
+  left: 0.25rem;
+  bottom: 0.25rem;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
