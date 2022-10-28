@@ -6,38 +6,64 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML =`
     <div class="container">
       <div class="search-bar">
         <input class="search-input" type="text" placeholder="Search for city.." id="search">
-        <button class="search-button" id="btn1"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="search-button" id="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
 		  </div>
     </div>
     <div class="slider-container">
       <div class="slider-box">
+        <div>
           <p class="slider-paragraph">City</p>
-            <label class="switch">
-              <input type="checkbox">
-              <span class="slider round"></span>
-            </label>
+        </div>
+        <div class="slider-cell">
+          <label class="switch">
+            <input id="slider" type="checkbox" value="yes">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div>
           <p class="slider-paragraph">Country</p>
-        </div> 
-      </div>
+        </div>
+      </div> 
     </div>
     <div id="grid" class="country-grid">
     </div>
   </div>`
+
 type City = {
-    name : string;
-    country : string;
-    region : string;
-    population : number;
+  name : string;
+  country : string;
+  region : string;
+  population : number;
 }
 
 const searchOutput = document.getElementById('search') as HTMLInputElement;
-const btn1 = document.getElementById('btn1') as HTMLInputElement;
+const btn = document.getElementById('btn') as HTMLInputElement;
+const search = document.getElementById('search') as HTMLInputElement;
 let text: string = "";
+let checkBox: boolean;
 
-submit()
-btn1.addEventListener('click', submit);
+btn.addEventListener('click', SliderCheck);
+search.addEventListener('keyup', (e) => {
+  if (e.key === 'Enter') {
+    SliderCheck();
+  }
+});
 
-function submit(): void {
+const slider = document.getElementById('slider') as HTMLInputElement;
+slider.addEventListener('click', SliderCheck);
+SliderCheck()
+
+function SliderCheck() {
+  checkBox = document.querySelector('#slider:checked') !== null;
+
+  if (checkBox == true) {
+    SubmitCountry()
+  }else{
+    SubmitCity();
+  }
+}
+
+function SubmitCity(): void {
   deleteGridChild();
   text = searchOutput.value;
   if (text == "") {
@@ -56,7 +82,7 @@ function submit(): void {
   .then(response => response.json())
   .then(response => {
 
-    let APIdata: City[] = [];
+    let CityData: City[] = [];
 
     for (let i = 0; i < response.data.length; i++) {
       const city: City = {
@@ -65,14 +91,67 @@ function submit(): void {
         region : response.data[i].region,
         population : response.data[i].population,
       }
-      APIdata[i] = city;
+      CityData[i] = city;
     }
-    console.log(APIdata);
+    // console.log(CityData);
 
-    ElementPusher(APIdata)
-  }
-  )
+    ElementPusher(CityData)
+  })
   .catch(err => console.error(err));
+}
+
+function SubmitCountry(): void {
+  deleteGridChild();
+  text = searchOutput.value;
+  if (text == "") {
+    text = "Slovakia";    
+  }
+
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '31c5235490msha1fb83c9e91f9d4p193520jsn67bdd3fc1f71',
+      'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+    }
+  };
+  
+  fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/countries?limit=10&namePrefix=${text}`, options)
+    .then(response => response.json())
+    .then(async response => {
+      
+      let countryCode: String[] = [];
+
+      for (let i = 0; i < response.data.length; i++) {
+        const cCode:string = response.data[i].code;
+        countryCode[i] = cCode;
+      }
+      // console.log(countryCode);
+
+      await delay(1300);
+
+      for (let i = 0; i < countryCode.length; i++) {
+        const options = {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key': '31c5235490msha1fb83c9e91f9d4p193520jsn67bdd3fc1f71',
+            'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+          }
+        };
+        
+        fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${countryCode[i]}`, options)
+        .then(response => response.json())
+        .then(response => {
+          console.log(response)
+        
+          // To be continued...
+        })
+        .catch(err => console.error(err));
+
+        await delay(1500);
+      }
+    })
+    .catch(err => console.error(err));
+
 }
 
 function ElementPusher(data : Array<City>) : void {
@@ -112,10 +191,8 @@ function deleteGridChild() : void {
   }
 }
 
-    // Iterovat response 
-
-    // Na kazdom prvku vytovirt HTML DIV Element a obsianut datami z aktualneho prvku v iteracii
-
-    // Na koniec vykreslit vsetky vygenerovane elementy do stranky
-
-    // HTMLElement.appendChild()
+function delay(ms:number){
+  return new Promise(resolve => {
+      setTimeout(resolve, ms);
+  });
+}

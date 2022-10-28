@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,900&display=swap');
 
 body {
   margin: 0;
@@ -14,23 +14,25 @@ body {
 }
 
 .headher {
-  margin: 0 0 0.5rem;
   text-align: center;
   text-transform: uppercase;
-  font-weight: 900;
   font-style: italic;
-  font-size: 3rem;
-  padding-top: 10px;
-  margin-top: 0;
+  font-size: 5rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
 	cursor: default;
   color: #282828;
   font-family: 'Roboto', sans-serif, Arial;
+  font-weight: 900;
 }
+
+/* Search Bar */
 
 .container {
   display: flex;
   justify-content: center;
-  height: 2rem;
+  height: 2.5rem;
+  margin-top: 1rem;
 }
 
 .search-bar {
@@ -39,19 +41,22 @@ body {
   border-radius: 100px;
   border: 2px solid #282828;
   background-color: #282828;
-  width: 25vw;
+  width: 30vw;
+  min-width: 300px;
 }
 
 .search-input {
-  padding-left: 1rem;
+  padding-left: 1.5rem;
   background-color: #282828;
   border: 0;
-  height: 1.625rem;
   outline: 0;
   flex: 1;
   border-radius: 100px;
   transition: background-color 0.15s;
   color: white;
+  font-family: 'Roboto', sans-serif, Arial;
+  font-weight: 900;
+  font-size: 1rem;
 }
 
 .search-input:focus {
@@ -64,7 +69,8 @@ body {
   color: white;
   cursor: pointer;
   border-radius: 50%;
-  height: 1.8rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border: 0;
 }
 
@@ -76,20 +82,23 @@ body {
 	opacity: 0.3;
 }
 
+/* Grid */
+
 .country-grid {
   display: grid;
-  margin-top: 30px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-top: 2rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  column-gap: 20px;
-  row-gap: 40px;
+  column-gap: 1.5rem;
+  row-gap: 2rem;
 }
 
 .country-grid > div {
 	height: auto;
   border-radius: 5%;
-  padding: 10px;
+  padding-left: 2rem;
+  padding-right: 2rem;
   background-color: #282828;
 	transition: box-shadow 0.15s;
 }
@@ -101,14 +110,19 @@ body {
 .country-grid > div > p {
   text-align: start;
 	cursor: default;
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: white;
+  font-family: 'Roboto', sans-serif, Arial;
+  font-weight: 400;
+  
 }
+
+/* Slider */
 
 .slider-container {
   display: flex;
   justify-content: center;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .slider-box {
@@ -119,8 +133,8 @@ body {
 .switch {
   position: relative;
   display: inline-block;
-  width: 3.125rem;
-  height: 1.5rem;
+  width: 3.75rem;
+  height: 2.125rem;
 }
 
 .switch input {
@@ -141,11 +155,11 @@ body {
   transition: .4s;
 }
 
-.slider:before {
+.slider::before {
   position: absolute;
   content: "";
-  height: 1rem;
-  width: 1rem;
+  height: 26px;
+  width: 26px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -154,32 +168,31 @@ body {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #282828;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
+input:checked + .slider::before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
 .slider.round {
-  border-radius: 34px;
+  border-radius: 2.125rem;
 }
 
-.slider.round:before {
+.slider.round::before {
   border-radius: 50%;
 }
 
 .slider-paragraph {
-  margin: 0;
-  align-self: center;
   text-align: center;
-  font-size: 1rem;
-  text-transform: uppercase;
+  margin: 0;
   font-family: 'Roboto', sans-serif, Arial;
+  font-weight: 900;
+  font-size: 1.6rem;
+}
+
+.slider-cell {
+  text-align: center;
 }
