@@ -2,15 +2,22 @@
 
 body {
   margin: 0;
-  background-image: linear-gradient(-45deg, #275bdc, #4171ec, #84CEEB, #5ab9ea, #8860d0, #7d3afa);
-  background-size: 300% 850%;
-  position: relative;
-  animation: changeAnimation 10s infinite alternate;
+  background-color: #35363a;
 }
 
 @keyframes changeAnimation {
   0%{background-position: left;}
   100%{background-position: right;}
+}
+
+.navigation-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: linear-gradient(-45deg, #275bdc, #4171ec, #84CEEB, #5ab9ea, #8860d0, #7d3afa);
+  background-size: 300% 500%;
+  position: relative;
+  animation: changeAnimation 10s infinite alternate;
 }
 
 .headher {
@@ -24,16 +31,10 @@ body {
   color: #282828;
   font-family: 'Roboto', sans-serif, Arial;
   font-weight: 900;
+  display: inline;
 }
 
 /* Search Bar */
-
-.container {
-  display: flex;
-  justify-content: center;
-  height: 2.5rem;
-  margin-top: 1rem;
-}
 
 .search-bar {
   display: flex;
@@ -86,7 +87,8 @@ body {
 
 .country-grid {
   display: grid;
-  margin-top: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -101,13 +103,30 @@ body {
   padding-right: 2rem;
   background-color: #282828;
 	transition: box-shadow 0.15s;
+  position: relative;
+  background-clip: padding-box;
+  border: solid 4px transparent;
+}
+
+.country-grid > div::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -4px;
+  border-radius: inherit;
+  background: linear-gradient(-45deg, #275bdc, #4171ec, #84CEEB, #5ab9ea, #8860d0, #7d3afa);
 }
 
 .country-grid > div:hover {
-	box-shadow: 0 0 10px black;
+	box-shadow: 0 0 20px white;
 }
 
 .country-grid > div > p {
+  padding-left: 3.5vw;
   text-align: start;
 	cursor: default;
   font-size: large;
@@ -116,24 +135,33 @@ body {
   font-weight: 400;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  display: block;
 }
 
-.country-grid > div > img {
-  width: 80px;
+.country-grid > div > p:first-child {
+  padding-left: 0rem;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.country-grid > div > div > img {
+  height: 60px;
+}
+
+.country-grid > div > div {
+  text-align: center;
+  padding-bottom: 1rem;
 }
 
 /* Slider */
 
-.slider-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
 .slider-box {
   display: grid;
   grid-template-columns: 1fr 6.25rem 1fr;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .switch {
@@ -195,8 +223,12 @@ input:checked + .slider::before {
   text-align: center;
   margin: 0;
   font-family: 'Roboto', sans-serif, Arial;
+  text-transform: uppercase;
+  font-style: italic;
   font-weight: 900;
   font-size: 1.6rem;
+  color: #282828;
+
 }
 
 .slider-cell {

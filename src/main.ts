@@ -2,31 +2,28 @@ import './style.css'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML =`
   <div>
-    <h1 class="headher">Contrio</h1>
-    <div class="container">
-      <div class="search-bar">
-        <input class="search-input" type="text" placeholder="Search for city.." id="search">
-        <button class="search-button" id="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-		  </div>
-    </div>
-    <div class="slider-container">
-      <div class="slider-box">
-        <div>
-          <p id="city" class="slider-paragraph"></p>
+    <div class="navigation-flex">
+      <h1 class="headher">Contrio</h1>
+        <div class="search-bar">
+          <input class="search-input" type="text" placeholder="Search.." id="search">
+          <button class="search-button" id="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
-        <div class="slider-cell">
-          <label class="switch">
-            <input id="slider" type="checkbox" value="yes">
-            <span class="slider round"></span>
-          </label>
+        <div class="slider-box">
+          <div>
+            <p id="city" class="slider-paragraph"></p>
+          </div>
+          <div class="slider-cell">
+            <label class="switch">
+              <input id="slider" type="checkbox" value="yes">
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div>
+            <p id="country" class="slider-paragraph"></p>
+          </div>
         </div>
-        <div>
-          <p id="country" class="slider-paragraph"></p>
-        </div>
-      </div> 
     </div>
-    <div id="grid" class="country-grid">
-    </div>
+      <div id="grid" class="country-grid">
   </div>`
 
 type City = {
@@ -179,7 +176,7 @@ function ElementPusher(data : Array<City>) : void {
     const newDiv= document.createElement("div");
 
     const cityParagraph = document.createElement("p");
-    const newCity = document.createTextNode(`Name: ${data[i].name}`);
+    const newCity = document.createTextNode(`${data[i].name}`);
     cityParagraph.appendChild(newCity);
     newDiv.appendChild(cityParagraph);
 
@@ -211,7 +208,7 @@ function CountryElementPusher(data : Array<Country>) {
       const newParagraph = document.createElement("p");
       let myCountry:Text;
       if (j == 0) {
-        myCountry = document.createTextNode(`Name: ${data[i].name}`);
+        myCountry = document.createTextNode(`${data[i].name}`);
       }else if (j == 1) {
         myCountry = document.createTextNode(`Capital: ${data[i].capital}`);
       }else if (j == 2) {
@@ -224,10 +221,11 @@ function CountryElementPusher(data : Array<Country>) {
       newParagraph.appendChild(myCountry);
       newDiv.appendChild(newParagraph);
     }
-
+    const imageDiv = document.createElement("div");
     const countryFlag = document.createElement("img");
     countryFlag.src = `${data[i].flag}`;
-    newDiv.appendChild(countryFlag);
+    imageDiv.appendChild(countryFlag);
+    newDiv.appendChild(imageDiv);
 
     document.getElementById('grid')!.appendChild(newDiv);
 
