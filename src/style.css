@@ -43,11 +43,11 @@ body {
   border: 2px solid #282828;
   background-color: #282828;
   width: 27vw;
-  min-width: 300px;
+  min-width: 18.75rem;
 }
 
 .search-input {
-  padding-left: 1.5rem;
+  padding-left: 1.625rem;
   background-color: #282828;
   border: 0;
   outline: 0;
@@ -83,20 +83,26 @@ body {
 	opacity: 0.3;
 }
 
-/* Grid */
+/* Flex */
 
-.country-grid {
-  display: grid;
+.country-flex {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  list-style: none;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   column-gap: 1.5rem;
   row-gap: 2rem;
 }
 
-.country-grid > div {
+.country-flex > div {
+  flex: 1;
+  min-width: 16.875rem;
+  max-width: 18.75rem;
 	height: auto;
   border-radius: 15px;
   padding-left: 2rem;
@@ -108,7 +114,7 @@ body {
   border: solid 4px transparent;
 }
 
-.country-grid > div::before {
+.country-flex > div::before {
   content: "";
   position: absolute;
   top: 0;
@@ -121,12 +127,12 @@ body {
   background: linear-gradient(-45deg, #275bdc, #4171ec, #84CEEB, #5ab9ea, #8860d0, #7d3afa);
 }
 
-.country-grid > div:hover {
+.country-flex > div:hover {
 	box-shadow: 0 0 20px white;
 }
 
-.country-grid > div > p {
-  padding-left: 3.5vw;
+.country-flex > div > p {
+  padding-left: 25%;
   text-align: start;
 	cursor: default;
   font-size: large;
@@ -137,7 +143,7 @@ body {
   margin-bottom: 1rem;
 }
 
-.country-grid > div > p:first-child {
+.country-flex > div > p:first-child {
   padding-left: 0rem;
   text-align: center;
   font-size: 1.3rem;
@@ -146,11 +152,11 @@ body {
   font-style: italic;
 }
 
-.country-grid > div > div > img {
+.country-flex > div > div > img {
   height: 60px;
 }
 
-.country-grid > div > div {
+.country-flex > div > div {
   text-align: center;
   padding-bottom: 1rem;
 }

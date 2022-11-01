@@ -23,7 +23,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML =`
           </div>
         </div>
     </div>
-      <div id="grid" class="country-grid">
+      <div id="grid" class="country-flex">
   </div>`
 
 type City = {
