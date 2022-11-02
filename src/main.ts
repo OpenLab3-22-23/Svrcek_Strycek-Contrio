@@ -40,6 +40,7 @@ type Country = {
   flag : URL;
   regions : number;
   callingCode : number;
+  population : number;
 }
 
 const searchOutput = document.getElementById('search') as HTMLInputElement;
@@ -146,19 +147,41 @@ function SubmitCountry(): void {
         .then(response => response.json())
         .then(response => {
 
-            const country: Country = {
+            let country: Country = {
             name : response.data.name,
             capital : response.data.capital,
             currency : response.data.currencyCodes[0],
             flag : response.data.flagImageUri,
             regions : response.data.numRegions,
             callingCode : response.data.callingCode,
+            population : 0,
           }
           CountryData[i] = country;
         })
         .catch(err => console.error(err));
 
         await delay(1500);
+
+        const options2 = {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key': '31c5235490msha1fb83c9e91f9d4p193520jsn67bdd3fc1f71',
+            'X-RapidAPI-Host': 'world-population.p.rapidapi.com'
+          }
+        };
+        
+        fetch(`https://world-population.p.rapidapi.com/population?country_name=${CountryData[i].name}`, options2)
+          .then(response => response.json())
+          .then(response => {
+            if (response.ok == true) {
+              const countryPopulation = response.body.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+              CountryData[i].population = countryPopulation;
+            }else {
+              CountryData[i].population = 404;
+            }
+          })
+          .catch(err => console.error(err));
+
       }
       // console.log(CountryData);
 
@@ -200,13 +223,17 @@ function ElementPusher(data : Array<City>) : void {
 }
 
 function CountryElementPusher(data : Array<Country>) {
+  // console.log(data);
+  // console.log(data[0].population);
+
   for (let i = 0; i < data.length; i++) {
-    
+    // console.log(data);
+    // console.log(data[i].population);
     const newDiv = document.createElement("div");
     
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < 6; j++) {
       const newParagraph = document.createElement("p");
-      let myCountry:Text;
+      let myCountry:Text = document.createTextNode("");
       if (j == 0) {
         myCountry = document.createTextNode(`${data[i].name}`);
       }else if (j == 1) {
@@ -217,6 +244,8 @@ function CountryElementPusher(data : Array<Country>) {
         myCountry = document.createTextNode(`Regions: ${data[i].regions}`);
       }else if (j == 4) {
         myCountry = document.createTextNode(`CallingCode: ${data[i].callingCode}`);
+      }else if (j == 5) {
+        myCountry = document.createTextNode(`Population: ${data[i].population}`);
       }
       newParagraph.appendChild(myCountry);
       newDiv.appendChild(newParagraph);
