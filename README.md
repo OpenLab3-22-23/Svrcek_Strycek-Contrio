@@ -5,3 +5,4 @@
   <br>
 <p>Andrej Svrcek: Funkcie Vyhľadávania, Zobrazovanie krajín, Rozoberanie dát z API</p>
 <p>Samuel Strycek: Buttony s vysledkami, dizajn stranky</p>
+<img src="colorfulDIVS.png"></img>
